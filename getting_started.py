@@ -108,7 +108,7 @@ def place_example_bets(
     current_credits = get_current_credits(api_url, team_id)
     example_bets = {
         'bets': [
-            Bet(driver.id, current_credits // 5).serialize() for driver in best_drivers
+            Bet(driver.id, current_credits // 10).serialize() for driver in best_drivers
         ]
     }
 
