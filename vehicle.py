@@ -42,6 +42,14 @@ def get_vehicle_data(license_plate):
     else:
         raise Exception(f"Failed to fetch data for vehicle {license_plate}: {response.status_code}")
 
+def get_results():
+    url = "https://rdwvirtualracing.azurewebsites.net/Results"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise Exception(f"Failed to fetch results data: {response.status_code}")
+
 def main():
     race_data = get_next_race()
     drivers = get_drivers()
@@ -59,6 +67,7 @@ def main():
         
         if vehicle_data:
             vehicle_data.update({
+                "driver_id": driver_data.get("id"),
                 "driver_name": driver_data.get("name"),
                 "years_of_experience": driver_data.get("yearsOfExperience"),
                 "driving_style": driver_data.get("drivingStyle")
@@ -68,9 +77,19 @@ def main():
     vehicle_df = pd.DataFrame(vehicle_data_list)
     track_df = pd.DataFrame([track_info])
     
-    return vehicle_df, track_df
+    # Write vehicles.csv and track.csv
+    vehicle_df.to_csv("vehicles.csv", index=False)
+    track_df.to_csv("track.csv", index=False)
+    
+    # Fetch results data and write to results.csv
+    results_data = get_results()
+    results_df = pd.DataFrame(results_data)
+    results_df.to_csv("results.csv", index=False)
+    
+    return vehicle_df, track_df, results_df
 
 if __name__ == "__main__":
-    vehicle_df, track_df = main()
+    vehicle_df, track_df, results_df = main()
     print(vehicle_df)
     print("Track Info:", track_df)
+    print("Results:", results_df)
