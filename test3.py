@@ -152,4 +152,4 @@ print(new_drivers[['driver_id', 'driver_name', 'win_probability']])
 # ---------------------------
 # 10. Save Predictions to a CSV File
 # ---------------------------
-new_drivers[['driver_id', 'driver_name', 'win_probability']].to_csv("predictions.csv", index=False)
+new_drivers[['driver_id', 'driver_name', 'win_probability']].to_csv("predictions3.csv", index=False)
