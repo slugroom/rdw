@@ -1,4 +1,3 @@
-TEAM_ID = "9ac857fa-268e-400c-aeee-5bdc0a3265c3"
 
 # /// script
 # requires-python = ">=3.12"
@@ -101,21 +100,23 @@ def place_example_bets(
     """Places bets for the next race"""
 
     # for this example, let's place bets on the 3 drivers with the most experience
-    drivers = get_drivers(api_url)
-    best_drivers = sorted(
-        drivers, key=lambda driver: driver.years_of_experience, reverse=True
-    )[:3]
+    # drivers = get_drivers(api_url)
+
+    # best_drivers = sorted(
+    #     drivers, key=lambda driver: driver.years_of_experience, reverse=True
+    # )[:3]
 
     # place a bet for each driver using a fraction of our credits
     current_credits = get_current_credits(api_url, team_id)
-    example_bets = {
-        'bets': [
-            Bet(driver.id, current_credits // 5).serialize() for driver in best_drivers
-        ]
-    }
+
+    driver_ids_to_bet = [19, 16]
+
+    new_bet = {"bets": [
+        Bet(id, current_credits // 20).serialize() for id in driver_ids_to_bet
+    ]}
 
     # make the put request to place the bets
-    response = requests.put(f'{api_url}/bets/{team_id}/{race_id}', json=example_bets)
+    response = requests.put(f'{api_url}/bets/{team_id}/{race_id}', json=new_bet)
 
     # if the request was not valid, raise an exception with the error
     if response.status_code != 200:
@@ -131,11 +132,10 @@ def place_example_bets(
 def main():
     api_url = 'https://rdwvirtualracing.azurewebsites.net'
 
-    secret_team_id = 'enter code from the paper here'
-
+    TEAM_ID = "9ac857fa-268e-400c-aeee-5bdc0a3265c3"
     next_race_id = get_next_race(api_url, log=True)
 
-    place_example_bets(api_url, secret_team_id, next_race_id, log=True)
+    place_example_bets(api_url, TEAM_ID, next_race_id, log=True)
 
 
 if __name__ == '__main__':
