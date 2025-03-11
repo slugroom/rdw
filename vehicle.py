@@ -17,6 +17,16 @@ def get_drivers():
     else:
         raise Exception(f"Failed to fetch drivers data: {response.status_code}")
 
+def get_track_info(track_id, weather, time_of_day):
+    url = f"https://rdwvirtualracing.azurewebsites.net/Tracks/{track_id}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        track_data = response.json()
+        track_data.update({"weather": weather, "time_of_day": time_of_day})
+        return track_data
+    else:
+        raise Exception(f"Failed to fetch track data for track {track_id}: {response.status_code}")
+
 def get_vehicle_data(license_plate):
     url = f"https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken={license_plate}"
     response = requests.get(url)
@@ -36,6 +46,11 @@ def main():
     race_data = get_next_race()
     drivers = get_drivers()
     
+    weather = race_data.get("weather")
+    time_of_day = race_data.get("timeOfDay")
+    track_id = race_data.get("trackId")
+    track_info = get_track_info(track_id, weather, time_of_day) if track_id else {}
+    
     vehicle_data_list = []
     
     for participant in race_data["participants"]:
@@ -50,9 +65,12 @@ def main():
             })
             vehicle_data_list.append(vehicle_data)
     
-    df = pd.DataFrame(vehicle_data_list)
-    return df
+    vehicle_df = pd.DataFrame(vehicle_data_list)
+    track_df = pd.DataFrame([track_info])
+    
+    return vehicle_df, track_df
 
 if __name__ == "__main__":
-    vehicle_df = main()
+    vehicle_df, track_df = main()
     print(vehicle_df)
+    print("Track Info:", track_df)
