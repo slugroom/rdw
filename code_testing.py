@@ -92,12 +92,28 @@ def get_drivers(api_url: str, log: bool = False) -> list[Driver]:
 
     return drivers
 
+def get_previous_races():
+    url = "https://rdwvirtualracing.azurewebsites.net/Races/Completed"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise Exception(f"Failed to fetch next race data: {response.status_code}")
+
+def get_previous_races():
+    url = "https://rdwvirtualracing.azurewebsites.net/Races/Completed"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise Exception(f"Failed to fetch next race data: {response.status_code}")
+
 
 def place_example_bets(
     api_url: str, team_id: str, race_id: int, log: bool = False
 ) -> None:
-    """Places bets for the next race"""
-
+    """Places bets for the next race"""    
+    
     # for this example, let's place bets on the 3 drivers with the most experience
     drivers = get_drivers(api_url)
     best_drivers = sorted(
