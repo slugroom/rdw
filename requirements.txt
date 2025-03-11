@@ -1,0 +1,7 @@
+joblib @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/joblib_1728589613021/work
+numpy @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_2bgq2wg6lu/croot/numpy_and_numpy_base_1738078509889/work/dist/numpy-2.2.2-cp313-cp313-macosx_11_0_arm64.whl#sha256=a7758b7132f833d3337b3ca434305ea8c009b92bf911cd866cef76aa80ebb8a0
+scikit-learn @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_2coq3750ge/croot/scikit-learn_1737988773864/work
+scipy @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_4c2xem2hut/croot/scipy_1737122914559/work/dist/scipy-1.15.1-cp313-cp313-macosx_11_0_arm64.whl#sha256=2adbb89ee8674c35ca4340464cf1e0513b1d490d3f1061403ef247bb97246b6b
+setuptools==72.1.0
+threadpoolctl @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_18rgexrkuo/croot/threadpoolctl_1731006101562/work
+wheel==0.45.1
