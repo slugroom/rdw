@@ -81,9 +81,10 @@ def main():
     vehicle_df.to_csv("vehicles.csv", index=False)
     track_df.to_csv("track.csv", index=False)
     
-    # Fetch results data and write to results.csv
+    # Fetch results data, select only the last 200 entries, and write to results.csv
     results_data = get_results()
     results_df = pd.DataFrame(results_data)
+    results_df = results_df.tail(200)  # keep only the last 200 entries (10 races with 20 drivers each)
     results_df.to_csv("results.csv", index=False)
     
     return vehicle_df, track_df, results_df
