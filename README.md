@@ -90,7 +90,7 @@ The system:
 
 ## Contributors
 
-Sigurdur Haukur Birgisson
-Josh van Vliet
-Efe Özbal
-Artur De Vlieger Lima
+- Sigurdur Haukur Birgisson
+- Josh van Vliet
+- Efe Özbal
+- Artur De Vlieger Lima
